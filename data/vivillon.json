@@ -1,0 +1,42 @@
+{
+  "India": {
+    "pattern": "Monsoon",
+    "image": "assets/patterns/monsoon.jpg"
+  },
+  "Japan": {
+    "pattern": "Elegant",
+    "image": "assets/patterns/elegant.jpg"
+  },
+  "United States": {
+    "pattern": "Modern",
+    "image": "assets/patterns/modern.jpg"
+  },
+  "France": {
+    "pattern": "Meadow",
+    "image": "assets/patterns/meadow.jpg"
+  },
+  "Brazil": {
+    "pattern": "Savanna",
+    "image": "assets/patterns/savanna.png"
+  },
+  "Canada": {
+  "pattern": "Polar",
+  "image": "assets/patterns/polar.png"
+},
+"United Kingdom": {
+  "pattern": "Garden",
+  "image": "assets/patterns/garden.png"
+},
+"Germany": {
+  "pattern": "Continental",
+  "image": "assets/patterns/continental.png"
+},
+"Spain": {
+  "pattern": "Marine",
+  "image": "assets/patterns/marine.png"
+},
+"Norway": {
+  "pattern": "Tundra",
+  "image": "assets/patterns/tundra.png"
+}
+}
