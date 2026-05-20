@@ -1,4 +1,4 @@
-This is a personal full stack project that uses Next.js to create a Vivillion tracker pattern from Pokemon Go where trainers from around the world can look up the various patterns on an interactive map & dex that can also work as a global exchange directory for trainers across the globe.
+This is a personal full stack project that uses heavy Next.js and Typescript to create a Vivillion tracker pattern from Pokemon Go where trainers from around the world can look up the various patterns on an interactive map & dex that can also work as a global exchange directory for trainers across the globe.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
