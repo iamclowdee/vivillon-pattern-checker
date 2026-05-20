@@ -1,78 +1,36 @@
-# Vivillon Pattern Checker
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A clean, frontend-focused web application that allows users to select their country and discover the corresponding Vivillon pattern in Pokémon GO.
+## Getting Started
 
-This project is designed as an informational and educational tool, using community-sourced geographic mappings.
+First, run the development server:
 
----
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## ✨ Features
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Country-based Vivillon pattern lookup
-- Clean, responsive UI (mobile-friendly)
-- Data-driven design using external JSON
-- Visual pattern preview
-- Dedicated legal & disclaimer page
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
----
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 🛠️ Tech Stack
+## Learn More
 
-- HTML5
-- CSS3 (responsive design)
-- Vanilla JavaScript
-- JSON (data separation)
+To learn more about Next.js, take a look at the following resources:
 
----
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## 📂 Project Structure
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-# Vivillon Pattern Checker
+## Deploy on Vercel
 
-A clean, frontend-focused web application that allows users to select their country and discover the corresponding Vivillon pattern in Pokémon GO.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-This project is designed as an informational and educational tool, using community-sourced geographic mappings.
-
----
-
-## ✨ Features
-
-- Country-based Vivillon pattern lookup
-- Clean, responsive UI (mobile-friendly)
-- Data-driven design using external JSON
-- Visual pattern preview
-- Dedicated legal & disclaimer page
-
----
-
-## 🛠️ Tech Stack
-
-- HTML5
-- CSS3 (responsive design)
-- Vanilla JavaScript
-- JSON (data separation)
-
----
-
-## 📂 Project Structure
-
-vivillon-pattern-checker/
-├── index.html
-├── legal.html
-├── css/
-├── js/
-├── data/
-└── assets/
-
-
----
-
-## ⚠️ Disclaimer
-
-This is an unofficial, fan-made project.
-
-Pokémon GO, Vivillon, Pokémon, and related trademarks are the property of Niantic, Inc., Scopely, Inc., and Nintendo.
-
-This project is not affiliated with, endorsed by, or sponsored by Niantic or Scopely.
-
-Vivillon pattern mappings are based on publicly available, community-sourced data and may not reflect official in-game boundaries.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
