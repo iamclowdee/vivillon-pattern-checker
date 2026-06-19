@@ -73,7 +73,7 @@ const MAP_REGIONS = [
     name: "Mediterranean & Iberia - Marine",
     pattern: "Marine",
     color: VIVILLON_PATTERNS.Marine.primaryColor,
-    path: "M 390,125 L 435,122 L 470,125 L 510,135 L 490,165 L 430,160 M 275,370 L 290,360 L 295,385 L 275,395 Z", // Dual paths including Chile representation
+    path: "M 390,125 L 435,122 L 470,125 L 510,135 L 490,165 L 430,160 M 275,370 L 290,360 L 295,385 L 275,395 Z",
     pin: { x: 420, y: 140, city: "Madrid, Spain" }
   },
   {
@@ -91,6 +91,70 @@ const MAP_REGIONS = [
     color: VIVILLON_PATTERNS.Elegant.primaryColor,
     path: "M 740,95 L 775,90 L 795,115 L 770,140 Z",
     pin: { x: 770, y: 110, city: "Tokyo, Japan" }
+  },
+  {
+    id: "North_America_High_Plains",
+    name: "Western United States & Canada - High Plains",
+    pattern: "High Plains",
+    color: VIVILLON_PATTERNS["High Plains"].primaryColor,
+    path: "M 50,70 L 130,80 L 160,110 L 190,150 L 130,160 L 90,120 Z",
+    pin: { x: 140, y: 115, city: "Denver, USA" }
+  },
+  {
+    id: "Caribbean_Archipelago",
+    name: "Caribbean Islands - Archipelago",
+    pattern: "Archipelago",
+    color: VIVILLON_PATTERNS.Archipelago.primaryColor,
+    path: "M 210,165 L 245,155 L 270,170 L 260,195 L 215,190 Z",
+    pin: { x: 240, y: 175, city: "San Juan, Puerto Rico" }
+  },
+  {
+    id: "Greenland_Icy_Snow",
+    name: "Arctic Regions - Icy Snow",
+    pattern: "Icy Snow",
+    color: VIVILLON_PATTERNS["Icy Snow"].primaryColor,
+    path: "M 310,20 L 360,15 L 390,30 L 370,55 L 320,60 Z",
+    pin: { x: 345, y: 35, city: "Nuuk, Greenland" }
+  },
+  {
+    id: "Equatorial_Jungle",
+    name: "Tropical Rainforests - Jungle",
+    pattern: "Jungle",
+    color: VIVILLON_PATTERNS.Jungle.primaryColor,
+    path: "M 210,195 L 235,185 L 255,205 L 240,230 L 210,215 Z M 680,215 L 720,225 L 740,250 L 690,260 L 660,235 Z",
+    pin: { x: 690, y: 230, city: "Singapore" }
+  },
+  {
+    id: "Pacific_Ocean",
+    name: "Oceanic Islands - Ocean",
+    pattern: "Ocean",
+    color: VIVILLON_PATTERNS.Ocean.primaryColor,
+    path: "M 20,130 L 45,125 L 55,145 L 30,150 Z M 560,270 L 580,260 L 590,290 L 570,300 Z",
+    pin: { x: 35, y: 135, city: "Honolulu, USA" }
+  },
+  {
+    id: "Southern_River",
+    name: "Australia & Southern Africa - River",
+    pattern: "River",
+    color: VIVILLON_PATTERNS.River.primaryColor,
+    path: "M 710,290 L 800,280 L 820,330 L 730,350 Z M 460,280 L 500,275 L 520,310 L 470,315 Z",
+    pin: { x: 770, y: 310, city: "Sydney, Australia" }
+  },
+  {
+    id: "Middle_East_Sandstorm",
+    name: "Middle East & Egypt - Sandstorm",
+    pattern: "Sandstorm",
+    color: VIVILLON_PATTERNS.Sandstorm.primaryColor,
+    path: "M 500,140 L 550,130 L 585,150 L 565,185 L 515,180 Z",
+    pin: { x: 535, y: 160, city: "Cairo, Egypt" }
+  },
+  {
+    id: "Central_America_Sun",
+    name: "Mexico & Northern South America - Sun",
+    pattern: "Sun",
+    color: VIVILLON_PATTERNS.Sun.primaryColor,
+    path: "M 140,165 L 185,155 L 215,190 L 195,200 L 150,185 Z",
+    pin: { x: 180, y: 175, city: "Mexico City, Mexico" }
   }
 ];
 

@@ -16,6 +16,7 @@ export default function VivillonDex({
   onSelectPattern
 }: VivillonDexProps) {
   const [caughtList, setCaughtList] = useState<string[]>([]);
+  const [isShinyMode, setIsShinyMode] = useState(false);
   const patternsArray = Object.values(VIVILLON_PATTERNS);
 
   // Load caught status from LocalStorage
@@ -145,18 +146,45 @@ export default function VivillonDex({
           </div>
         </div>
 
-        {/* Milestone badge */}
-        {progressPercent === 100 ? (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(159, 122, 234, 0.15)", border: "1px solid rgba(159, 122, 234, 0.3)", padding: "6px 12px", borderRadius: "20px" }}>
-            <Sparkles style={{ width: "16px", height: "16px", color: "gold" }} />
-            <span style={{ fontSize: "10px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", color: "gold", marginTop: "2px" }}>Master Collector</span>
-          </div>
-        ) : caughtCount >= 5 ? (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(66, 153, 225, 0.12)", border: "1px solid rgba(66, 153, 225, 0.25)", padding: "6px 12px", borderRadius: "20px" }}>
-            <ShieldCheck style={{ width: "16px", height: "16px", color: "var(--accent-blue)" }} />
-            <span style={{ fontSize: "10px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--accent-blue)", marginTop: "2px" }}>Expert Badge</span>
-          </div>
-        ) : null}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* Shiny Toggle Control */}
+          <button
+            onClick={() => setIsShinyMode(!isShinyMode)}
+            style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              border: "1.5px solid " + (isShinyMode ? "var(--accent-pink)" : "rgba(255, 255, 255, 0.15)"),
+              background: isShinyMode ? "rgba(237, 100, 166, 0.15)" : "rgba(255, 255, 255, 0.03)",
+              color: isShinyMode ? "var(--accent-pink)" : "var(--text-secondary)",
+              fontWeight: "700",
+              fontSize: "11px",
+              textTransform: "uppercase",
+              letterSpacing: "0.5px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              transition: "var(--transition-smooth)",
+              boxShadow: isShinyMode ? "0 0 12px rgba(237, 100, 166, 0.25)" : "none"
+            }}
+          >
+            <Sparkles style={{ width: "14px", height: "14px", color: isShinyMode ? "var(--accent-pink)" : "var(--text-muted)" }} />
+            {isShinyMode ? "Shiny Mode Active" : "View Shiny Forms"}
+          </button>
+
+          {/* Milestone badge */}
+          {progressPercent === 100 ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(159, 122, 234, 0.15)", border: "1px solid rgba(159, 122, 234, 0.3)", padding: "6px 12px", borderRadius: "20px" }}>
+              <Sparkles style={{ width: "16px", height: "16px", color: "gold" }} />
+              <span style={{ fontSize: "10px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", color: "gold", marginTop: "2px" }}>Master Collector</span>
+            </div>
+          ) : caughtCount >= 5 ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(66, 153, 225, 0.12)", border: "1px solid rgba(66, 153, 225, 0.25)", padding: "6px 12px", borderRadius: "20px" }}>
+              <ShieldCheck style={{ width: "16px", height: "16px", color: "var(--accent-blue)" }} />
+              <span style={{ fontSize: "10px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--accent-blue)", marginTop: "2px" }}>Expert Badge</span>
+            </div>
+          ) : null}
+        </div>
       </div>
 
       {/* Grid of Cards */}
@@ -172,11 +200,14 @@ export default function VivillonDex({
           const isSelected = activePattern === pattern.name;
           const isHovered = hoveredPattern === pattern.name;
           const isCaught = caughtList.includes(pattern.name);
+          const shinyActiveBorder = isShinyMode 
+            ? (isSelected ? "2px solid var(--accent-pink)" : isHovered ? "1.5px solid rgba(237, 100, 166, 0.8)" : "1px solid rgba(237, 100, 166, 0.25)")
+            : (isSelected ? `2px solid ${pattern.primaryColor}` : isHovered ? `1.5px solid ${pattern.primaryColor}80` : "1px solid var(--glass-border)");
 
           return (
             <div
               key={pattern.name}
-              className="glass-panel"
+              className={`glass-panel ${isShinyMode ? "holographic-glow" : ""}`}
               onMouseMove={handleMouseMove}
               onMouseLeave={(e) => handleMouseLeave(e, pattern.primaryColor)}
               onClick={() => onSelectPattern(pattern.name)}
@@ -189,15 +220,11 @@ export default function VivillonDex({
                 flexDirection: "column",
                 alignItems: "center",
                 background: isSelected 
-                  ? `linear-gradient(135deg, rgba(30, 20, 60, 0.8) 0%, rgba(10, 8, 25, 0.9) 100%)`
+                  ? (isShinyMode ? "linear-gradient(135deg, rgba(50, 20, 60, 0.85) 0%, rgba(10, 8, 25, 0.95) 100%)" : `linear-gradient(135deg, rgba(30, 20, 60, 0.8) 0%, rgba(10, 8, 25, 0.9) 100%)`)
                   : `rgba(20, 16, 45, 0.55)`,
-                border: isSelected 
-                  ? `2px solid ${pattern.primaryColor}`
-                  : isHovered
-                    ? `1.5px solid ${pattern.primaryColor}80`
-                    : `1px solid var(--glass-border)`,
+                border: shinyActiveBorder,
                 boxShadow: isSelected 
-                  ? `0 8px 24px ${pattern.primaryColor}25`
+                  ? (isShinyMode ? "0 8px 24px rgba(237, 100, 166, 0.35)" : `0 8px 24px ${pattern.primaryColor}25`)
                   : `0 4px 12px rgba(0, 0, 0, 0.25)`,
                 transition: "border 0.25s, background 0.25s, box-shadow 0.25s",
                 transformStyle: "preserve-3d"
@@ -214,12 +241,12 @@ export default function VivillonDex({
                   height: "24px",
                   borderRadius: "50%",
                   border: isCaught ? "none" : "1.5px solid rgba(255, 255, 255, 0.2)",
-                  background: isCaught ? pattern.primaryColor : "transparent",
+                  background: isCaught ? (isShinyMode ? "var(--accent-pink)" : pattern.primaryColor) : "transparent",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
-                  boxShadow: isCaught ? `0 0 8px ${pattern.primaryColor}80` : "none",
+                  boxShadow: isCaught ? (isShinyMode ? "0 0 8px rgba(237, 100, 166, 0.8)" : `0 0 8px ${pattern.primaryColor}80`) : "none",
                   transition: "var(--transition-smooth)",
                   zIndex: 5
                 }}
@@ -235,7 +262,7 @@ export default function VivillonDex({
                   display: "flex", 
                   justifyContent: "center", 
                   alignItems: "center",
-                  transform: "translateZ(30px)", // Elevate image in 3D perspective
+                  transform: "translateZ(30px)",
                   transition: "transform 0.2s ease"
                 }}
               >
@@ -248,8 +275,8 @@ export default function VivillonDex({
                     objectFit: "contain",
                     borderRadius: "6px",
                     filter: isCaught 
-                      ? "none" 
-                      : "grayscale(30%) brightness(85%)",
+                      ? (isShinyMode ? "hue-rotate(150deg) saturate(1.4) brightness(1.1) drop-shadow(0 0 8px rgba(237,100,166,0.5))" : "none")
+                      : (isShinyMode ? "grayscale(30%) brightness(85%) hue-rotate(150deg)" : "grayscale(30%) brightness(85%)"),
                     transition: "var(--transition-smooth)"
                   }}
                 />
@@ -264,22 +291,22 @@ export default function VivillonDex({
                   transition: "transform 0.2s ease"
                 }}
               >
-                <h5 style={{ fontSize: "15px", fontWeight: "700", color: "#fff" }}>
-                  {pattern.name}
+                <h5 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
+                  {pattern.name} {isShinyMode && <span style={{ color: "var(--accent-pink)" }}>✨</span>}
                 </h5>
                 <span 
                   style={{ 
                     fontSize: "10px", 
-                    color: pattern.primaryColor,
+                    color: isShinyMode ? "var(--accent-pink)" : pattern.primaryColor,
                     fontWeight: "600",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
                     display: "inline-block",
                     marginTop: "2px",
-                    textShadow: `0 0 6px ${pattern.primaryColor}30`
+                    textShadow: isShinyMode ? "0 0 6px rgba(237, 100, 166, 0.4)" : `0 0 6px ${pattern.primaryColor}30`
                   }}
                 >
-                  Regional Specimen
+                  {isShinyMode ? "Shiny Specimen" : "Regional Specimen"}
                 </span>
               </div>
             </div>

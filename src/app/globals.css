@@ -149,3 +149,16 @@ button, input, select {
     padding: 20px 12px;
   }
 }
+
+/* Holographic Shimmer for Shiny Cards */
+@keyframes holographic {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.holographic-glow {
+  background: linear-gradient(135deg, rgba(20, 16, 45, 0.8) 0%, rgba(237, 100, 166, 0.12) 35%, rgba(66, 153, 225, 0.12) 65%, rgba(10, 8, 25, 0.95) 100%) !important;
+  background-size: 200% 200% !important;
+  animation: holographic 6s ease infinite !important;
+}
