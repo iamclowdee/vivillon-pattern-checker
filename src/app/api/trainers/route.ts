@@ -37,6 +37,14 @@ let inMemoryTrainers: Trainer[] = [
     created_at: new Date(Date.now() - 24 * 3600000).toISOString()
   },
   {
+    id: "mock-3b",
+    name: "Kai",
+    friend_code: "8391 0492 8401",
+    region: "Ocean",
+    note: "Alola! Sending daily Ocean postcards from Honolulu, Hawaii. looking for Sandstorm!",
+    created_at: new Date(Date.now() - 30 * 3600000).toISOString()
+  },
+  {
     id: "mock-4",
     name: "Sven",
     friend_code: "2048 9381 0582",
@@ -45,12 +53,28 @@ let inMemoryTrainers: Trainer[] = [
     created_at: new Date(Date.now() - 36 * 3600000).toISOString()
   },
   {
+    id: "mock-4b",
+    name: "Liam",
+    friend_code: "6029 4810 3928",
+    region: "River",
+    note: "Daily gifts from Sydney, Australia! Let's get to Best Friends level.",
+    created_at: new Date(Date.now() - 42 * 3600000).toISOString()
+  },
+  {
     id: "mock-5",
     name: "Emma",
     friend_code: "7401 8592 0481",
     region: "Garden",
     note: "London, UK player. Let's exchange postcards for Scatterbugs!",
     created_at: new Date(Date.now() - 48 * 3600000).toISOString()
+  },
+  {
+    id: "mock-5b",
+    name: "Siti",
+    friend_code: "1928 3847 5620",
+    region: "Jungle",
+    note: "Singapore player! Sending Jungle gifts daily.",
+    created_at: new Date(Date.now() - 60 * 3600000).toISOString()
   },
   {
     id: "mock-6",

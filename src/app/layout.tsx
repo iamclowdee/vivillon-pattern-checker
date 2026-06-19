@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/app/auth/AuthProvider";
+import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Vivillon Pattern Tracker | Pokémon GO Interactive Map & Dex",
@@ -15,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

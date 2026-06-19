@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { VIVILLON_PATTERNS } from "../data/vivillonData";
-import { Copy, Check, Users, ShieldAlert, Wifi, WifiOff, AlertTriangle } from "lucide-react";
+import { Copy, Check, Users, ShieldAlert, Wifi, WifiOff, AlertTriangle, QrCode } from "lucide-react";
+import QRCode from "qrcode";
 
 interface Trainer {
   id: string;
@@ -26,6 +27,32 @@ export default function ExchangeHub({
   const [loading, setLoading] = useState(true);
   const [isMock, setIsMock] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // QR Code Modal State
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
+  const [showQrModal, setShowQrModal] = useState<boolean>(false);
+  const [qrTrainerName, setQrTrainerName] = useState<string>("");
+  const [qrFriendCode, setQrFriendCode] = useState<string>("");
+
+  const handleShowQrCode = async (trainerName: string, friendCode: string) => {
+    try {
+      const cleanCode = friendCode.replace(/\s/g, "");
+      const url = await QRCode.toDataURL(cleanCode, {
+        margin: 2,
+        width: 300,
+        color: {
+          dark: "#0a0819",
+          light: "#ffffff"
+        }
+      });
+      setQrCodeUrl(url);
+      setQrTrainerName(trainerName);
+      setQrFriendCode(friendCode);
+      setShowQrModal(true);
+    } catch (err) {
+      console.error("Failed to generate QR code", err);
+    }
+  };
 
   // Form State
   const [formName, setFormName] = useState("");
@@ -388,29 +415,72 @@ export default function ExchangeHub({
                       )}
                     </div>
 
-                    {/* Copy Button */}
-                    <button
-                      onClick={() => handleCopyCode(trainer.id, trainer.friend_code)}
-                      style={{
-                        padding: "10px",
-                        borderRadius: "10px",
-                        border: "1px solid var(--glass-border)",
-                        background: isCopied ? "rgba(49, 151, 149, 0.15)" : "rgba(255, 255, 255, 0.04)",
-                        borderColor: isCopied ? "teal" : "var(--glass-border)",
-                        cursor: "pointer",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        transition: "var(--transition-smooth)",
-                        boxShadow: isCopied ? "0 0 10px rgba(49, 151, 149, 0.3)" : "none"
-                      }}
-                    >
-                      {isCopied ? (
-                        <Check style={{ width: "16px", height: "16px", color: "teal" }} />
-                      ) : (
-                        <Copy style={{ width: "16px", height: "16px", color: "var(--text-secondary)" }} />
-                      )}
-                    </button>
+                    {/* Actions container */}
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      {/* QR Code Button */}
+                      <button
+                        onClick={() => handleShowQrCode(trainer.name, trainer.friend_code)}
+                        title="Show QR Code"
+                        style={{
+                          padding: "10px",
+                          borderRadius: "10px",
+                          border: "1px solid var(--glass-border)",
+                          background: "rgba(255, 255, 255, 0.04)",
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          transition: "var(--transition-smooth)"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                          e.currentTarget.style.borderColor = "var(--accent-purple)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
+                          e.currentTarget.style.borderColor = "var(--glass-border)";
+                        }}
+                      >
+                        <QrCode style={{ width: "16px", height: "16px", color: "var(--text-secondary)" }} />
+                      </button>
+
+                      {/* Copy Button */}
+                      <button
+                        onClick={() => handleCopyCode(trainer.id, trainer.friend_code)}
+                        title="Copy Friend Code"
+                        style={{
+                          padding: "10px",
+                          borderRadius: "10px",
+                          border: "1px solid var(--glass-border)",
+                          background: isCopied ? "rgba(49, 151, 149, 0.15)" : "rgba(255, 255, 255, 0.04)",
+                          borderColor: isCopied ? "teal" : "var(--glass-border)",
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          transition: "var(--transition-smooth)",
+                          boxShadow: isCopied ? "0 0 10px rgba(49, 151, 149, 0.3)" : "none"
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isCopied) {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                            e.currentTarget.style.borderColor = "var(--accent-blue)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isCopied) {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
+                            e.currentTarget.style.borderColor = "var(--glass-border)";
+                          }
+                        }}
+                      >
+                        {isCopied ? (
+                          <Check style={{ width: "16px", height: "16px", color: "teal" }} />
+                        ) : (
+                          <Copy style={{ width: "16px", height: "16px", color: "var(--text-secondary)" }} />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -419,6 +489,91 @@ export default function ExchangeHub({
         </div>
 
       </div>
+
+      {/* QR Code Modal Overlay */}
+      {showQrModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(5, 4, 12, 0.8)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000
+          }}
+          onClick={() => setShowQrModal(false)}
+        >
+          <div
+            className="glass-panel"
+            style={{
+              width: "90%",
+              maxWidth: "400px",
+              padding: "24px",
+              background: "rgba(10, 8, 25, 0.95)",
+              borderColor: "var(--accent-purple)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "16px",
+              textAlign: "center"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}>
+              Trainer QR Code
+            </h3>
+            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+              Scan code with your phone to add <strong>{qrTrainerName}</strong> as a friend!
+            </p>
+
+            <div
+              style={{
+                background: "#fff",
+                padding: "16px",
+                borderRadius: "12px",
+                boxShadow: "0 8px 24px rgba(159, 122, 234, 0.2)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              {qrCodeUrl && (
+                <img
+                  src={qrCodeUrl}
+                  alt={`QR Code for ${qrTrainerName}`}
+                  style={{ width: "200px", height: "200px" }}
+                />
+              )}
+            </div>
+
+            <code style={{ fontSize: "16px", color: "var(--accent-blue)", fontWeight: "700", letterSpacing: "1px" }}>
+              {qrFriendCode}
+            </code>
+
+            <button
+              onClick={() => setShowQrModal(false)}
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "8px",
+                border: "none",
+                background: "linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%)",
+                color: "#fff",
+                fontWeight: "700",
+                cursor: "pointer",
+                fontSize: "12px"
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

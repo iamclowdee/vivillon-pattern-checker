@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { Sparkles, MapPin, Globe, HelpCircle, Shield } from "lucide-react";
 import WorldMap from "../components/WorldMap";
 import VivillonDex from "../components/VivillonDex";
 import ExchangeHub from "../components/ExchangeHub";
 import { VIVILLON_PATTERNS, COUNTRY_MAPPINGS } from "../data/vivillonData";
-import { Search, MapPin, Globe, Sparkles, AlertCircle, HelpCircle, Shield } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   const [activePatternName, setActivePatternName] = useState<string | null>("Monsoon"); // Default start
@@ -51,129 +52,12 @@ export default function Home() {
 
   return (
     <main className="container" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", gap: "30px" }}>
-      
-      {/* Header Panel */}
-      <header 
-        className="glass-panel" 
-        style={{ 
-          padding: "24px 30px", 
-          display: "flex", 
-          justifyContent: "space-between", 
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "16px",
-          background: "linear-gradient(135deg, rgba(20, 16, 45, 0.7) 0%, rgba(10, 8, 25, 0.9) 100%)",
-          borderBottom: "1.5px solid rgba(159, 122, 234, 0.25)"
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div 
-            style={{ 
-              width: "48px", 
-              height: "48px", 
-              borderRadius: "12px", 
-              background: "linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              boxShadow: "0 4px 20px rgba(159, 122, 234, 0.4)",
-              fontSize: "24px"
-            }}
-            className="float-animation"
-          >
-            🦋
-          </div>
-          <div>
-            <h1 className="text-gradient" style={{ fontSize: "24px", fontFamily: "var(--font-title)", fontWeight: 800 }}>
-              VIVILLON REGION FINDER
-            </h1>
-            <p style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "2px" }}>
-              Pokémon GO Interactive Pattern Tracker & Global Exchange Directory
-            </p>
-          </div>
-        </div>
 
-        {/* Global Autocomplete Search Input */}
-        <div style={{ position: "relative", width: "300px" }}>
-          <div 
-            style={{ 
-              display: "flex", 
-              alignItems: "center", 
-              background: "rgba(255, 255, 255, 0.05)", 
-              border: "1px solid var(--glass-border)", 
-              borderRadius: "10px",
-              padding: "4px 12px",
-              transition: "var(--transition-smooth)"
-            }}
-          >
-            <Search style={{ width: "16px", height: "16px", color: "var(--text-muted)", marginRight: "8px" }} />
-            <input
-              type="text"
-              placeholder="Search your country..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "#fff",
-                fontSize: "13px",
-                outline: "none",
-                width: "100%",
-                padding: "8px 0"
-              }}
-            />
-          </div>
-
-          {/* Autocomplete Dropdown */}
-          {searchResults.length > 0 && (
-            <div 
-              className="glass-panel" 
-              style={{ 
-                position: "absolute", 
-                top: "110%", 
-                left: 0, 
-                width: "100%", 
-                maxHeight: "200px", 
-                overflowY: "auto", 
-                zIndex: 100,
-                background: "rgba(10, 8, 25, 0.95)",
-                padding: "6px"
-              }}
-            >
-              {searchResults.map((country) => (
-                <div
-                  key={country}
-                  onClick={() => handleSelectCountry(country)}
-                  style={{
-                    padding: "8px 12px",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                    fontSize: "13px",
-                    color: "#fff",
-                    transition: "var(--transition-smooth)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                  }}
-                >
-                  <MapPin style={{ width: "12px", height: "12px", color: "var(--accent-purple)" }} />
-                  {country}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Main Grid: Map and Selected Card Details */}
       <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "24px" }} className="dashboard-grid">
-        
+
         {/* Left Side: Map Dashboard */}
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <WorldMap
@@ -206,22 +90,22 @@ export default function Home() {
                   <h2 style={{ fontSize: "28px", color: "#fff", display: "flex", alignItems: "center", gap: "8px" }}>
                     {activePattern.name}
                   </h2>
-                  <span 
-                    style={{ 
-                      fontSize: "11px", 
-                      color: activePattern.primaryColor, 
-                      fontWeight: "700", 
-                      textTransform: "uppercase", 
-                      letterSpacing: "1px" 
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: activePattern.primaryColor,
+                      fontWeight: "700",
+                      textTransform: "uppercase",
+                      letterSpacing: "1px"
                     }}
                   >
                     Scatterbug Specimen
                   </span>
                 </div>
-                <div 
-                  style={{ 
-                    padding: "6px 12px", 
-                    borderRadius: "14px", 
+                <div
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: "14px",
                     backgroundColor: `${activePattern.primaryColor}20`,
                     border: `1.5px solid ${activePattern.primaryColor}40`,
                     color: activePattern.primaryColor,
@@ -238,14 +122,14 @@ export default function Home() {
               </div>
 
               {/* Wing Artwork Showcase */}
-              <div 
-                style={{ 
-                  width: "100%", 
-                  height: "170px", 
-                  background: "rgba(0, 0, 0, 0.3)", 
-                  borderRadius: "12px", 
-                  display: "flex", 
-                  justifyContent: "center", 
+              <div
+                style={{
+                  width: "100%",
+                  height: "170px",
+                  background: "rgba(0, 0, 0, 0.3)",
+                  borderRadius: "12px",
+                  display: "flex",
+                  justifyContent: "center",
                   alignItems: "center",
                   border: "1px solid rgba(255,255,255,0.03)",
                   boxShadow: "inset 0 4px 20px rgba(0, 0, 0, 0.5)"
@@ -300,15 +184,15 @@ export default function Home() {
 
             </div>
           ) : (
-            <div 
-              className="glass-panel" 
-              style={{ 
-                padding: "40px 20px", 
-                textAlign: "center", 
-                display: "flex", 
-                flexDirection: "column", 
-                justifyContent: "center", 
-                alignItems: "center", 
+            <div
+              className="glass-panel"
+              style={{
+                padding: "40px 20px",
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
                 gap: "12px",
                 flex: 1
               }}
@@ -353,10 +237,10 @@ export default function Home() {
       </section>
 
       {/* Footer Legal & Disclaimers */}
-      <footer 
-        className="glass-panel" 
-        style={{ 
-          padding: "20px 30px", 
+      <footer
+        className="glass-panel"
+        style={{
+          padding: "20px 30px",
           borderRadius: "14px",
           display: "flex",
           justifyContent: "space-between",
@@ -374,14 +258,14 @@ export default function Home() {
           <p>Pokémon GO, Scatterbug, Spewpa, Vivillon, and related names are Niantic, Nintendo, and Game Freak trademarks.</p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <button 
+          <button
             onClick={() => setShowDisclaimer(!showDisclaimer)}
-            style={{ 
-              background: "transparent", 
-              border: "none", 
-              color: "var(--accent-blue)", 
-              cursor: "pointer", 
-              fontSize: "11px", 
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "var(--accent-blue)",
+              cursor: "pointer",
+              fontSize: "11px",
               fontWeight: "600",
               display: "flex",
               alignItems: "center",
@@ -394,7 +278,7 @@ export default function Home() {
 
         {/* Disclaimer Modal */}
         {showDisclaimer && (
-          <div 
+          <div
             style={{
               position: "fixed",
               top: 0,
@@ -410,8 +294,8 @@ export default function Home() {
             }}
             onClick={() => setShowDisclaimer(false)}
           >
-            <div 
-              className="glass-panel" 
+            <div
+              className="glass-panel"
               style={{
                 width: "90%",
                 maxWidth: "500px",
@@ -429,7 +313,7 @@ export default function Home() {
                 Legal & Disclaimer
               </h3>
               <p style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
-                This is an unofficial, fan-made helper utility designed strictly for educational and in-game coordination purposes in Pokémon GO. 
+                This is an unofficial, fan-made helper utility designed strictly for educational and in-game coordination purposes in Pokémon GO.
               </p>
               <p style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
                 Pokémon GO, Scatterbug, Spewpa, Vivillon, and related Pokémon character names, assets, and graphics are intellectual property of Niantic, Inc., Game Freak, Nintendo, and The Pokémon Company. This project has no commercial affiliation with, nor endorsement from, Niantic or Nintendo.
